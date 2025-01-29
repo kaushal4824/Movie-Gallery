@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+        header {
+            background-color: #e50914;
+            padding: 1rem;
+            text-align: center;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 1rem;
+            text-align: center;
+        }
+        #preview {
+            height: 300px;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Streaming - Watch Your Favorites</h1>
+    </header>
+    <div class="main-container">
+        <div id="preview">Hover over a movie to see a preview here!</div>
+        <div class="grid" id="movieGrid"></div>
+    </div>
+    <script>
+        const movieData = [
+            { title: "Inception", description: "A mind-bending thriller by Christopher Nolan.", image: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg" },
+            { title: "The Dark Knight", description: "Batman faces his greatest enemy, the Joker.", image: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" },
+            { title: "Interstellar", description: "A space epic exploring love and time travel.", image: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" },
+            { title: "The Matrix", description: "A hacker discovers the shocking truth about reality.", image: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" }
+        ];
+
+        const movieGrid = document.getElementById('movieGrid');
+        const preview = document.getElementById('preview');
+
+        movieData.forEach(movie => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            
+            card.innerHTML = `
+                <img src="${movie.image}" alt="${movie.title}">
+                <div class="card-content">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.description}</p>
+                </div>
+            `;
+
+            card.addEventListener("mouseover", () => {
+                preview.style.backgroundImage = `url(${movie.image})`;
+                preview.innerText = movie.title;
+            });
+
+            card.addEventListener("mouseout", () => {
+                preview.style.backgroundImage = "";
+                preview.innerText = "Hover over a movie to see a preview here!";
+            });
+
+            movieGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
